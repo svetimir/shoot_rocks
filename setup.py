@@ -15,12 +15,13 @@ options = {
         'include_files':[
             os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tk86t.dll'),
             os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tcl86t.dll'),
-            'sp.gif',
+            'sp-0.2.1.gif',
+            'asteroid40x40.gif',
          ],
     },
 }
 
 setup(options=options,name='ShootRocks',
-      version='0.1.2',
+      version='0.2.5',
       author='fluxoid <ifi@yandex.ru>, jazzard <deathwingstwinks@gmail.com>',
       executables=[Executable(script='sr_main.py',base=base)])
