@@ -6,9 +6,7 @@
 
 from tkinter import *
 from tkinter import messagebox
-import random
-import math
-import time
+import random, math, time
 
 version='0.2.6'
 authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
