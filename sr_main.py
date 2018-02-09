@@ -11,12 +11,15 @@ import random, time
 version='0.2.6.1'
 authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 
-# 0.2.7 - ОЖИДАЕТСЯ
+# 0.2.9 - ОЖИДАЕТСЯ
+# - уровни сложности EASY MEDIUM HARDCORE
+
+# 0.2.8 - ОЖИДАЕТСЯ
 # - моргание корабля при попадании в него камня
+
+# 0.2.7
 # - новые экстра-прочные камни (с хитпоинтами количеством 3)
 # -- вероятность спавна 15%
-# -- 5х очки за их уничтожение
-# - уровни сложности EASY MEDIUM HARDCORE
 
 # 0.2.6
 # - ускорение скорости спавна и движения камней со временем
@@ -88,10 +91,16 @@ class Bullet(object):
         self.canvas.move(self.id,0,self.y)
         
 class Rock(object):
-    def __init__(self,canvas,velocity):
-# конструктор версии 0.2.6
+    def __init__(self,canvas,velocity,rock_type):
+# конструктор версии 0.2.7
+        self.rock_type=rock_type
         self.canvas=canvas
-        self.img=PhotoImage(file='asteroid40x40.gif')
+        self.hp=0
+        if rock_type=='regular':
+            self.img=PhotoImage(file='asteroid40x40.gif')
+        elif rock_type=='extra':
+            self.img=PhotoImage(file='asteroid-extra.gif')
+            self.hp=2
         c=random.randint(20,480)
         self.id=canvas.create_image(c,0,anchor=NW,image=self.img)
 # стартовая скорость падения камней 1
@@ -102,7 +111,7 @@ class Rock(object):
     # камень движется строго сверху вниз
     def draw(self):
         self.canvas.move(self.id,0,self.y)
-        
+
 class Stats(object):
     def __init__(self):
         self.pts=0
@@ -167,6 +176,8 @@ fall_v=1
 v_fact=0.05
 # максимальная скорость
 max_v=10
+# контроль спавна камней
+wrock=0
 
 canvas.bind_all('<Escape>',lambda e: tk.destroy())
 
@@ -188,7 +199,12 @@ while state:
             i.draw()
     # создаем камень
     if c>=spawn_interval:
-        rocks.append(Rock(canvas,fall_v))
+        # селектор спавна камней
+        wrock=random.randint(1,100)
+        if wrock>=85:
+            rocks.append(Rock(canvas,fall_v,'extra'))
+        else:
+            rocks.append(Rock(canvas,fall_v,'regular'))
         c=0        
         rc+=1
         rs+=1
@@ -225,10 +241,15 @@ while state:
             #1. пуля сталкивается с камнем
             if a[2]>=b[0] and a[0]<=b[0]+40:
                 if a[3]>=b[1] and a[3]<=b[1]+40:
+                    # пулю удаляем
                     canvas.delete(i.id)
-                    canvas.delete(j.id)
                     v.bs.remove(i)
-                    rocks.remove(j)
+                    # проверяем хитпоинты камня
+                    if j.hp==0:
+                        canvas.delete(j.id)
+                        rocks.remove(j)
+                    else:
+                        j.hp-=1
                     s.pts+=10
                     # обновляем текст информации об очках
                     infosc.update(s.pts)
