@@ -1,14 +1,14 @@
 # SHOOTING ROCKS GAME
 # AUTHOR: fluxoid, ifi@yandex.ru
 # STARTED: 05.07.2017
-# VERSION: 0.2.6
+# VERSION: 0.2.6.1
 # LATEST FILE REVISION: 07.02.2018
 
 from tkinter import *
 from tkinter import messagebox
-import random, math, time
+import random, time
 
-version='0.2.6'
+version='0.2.6.1'
 authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 
 # 0.2.7 - ОЖИДАЕТСЯ
@@ -35,7 +35,7 @@ authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 # либо не уйдет за пределы игрового холста
 
 class Vehicle(object):
-    def __init__(self,canvas,color):
+    def __init__(self,canvas):
         self.canvas=canvas
         self.bs=list()
         self.x=0
@@ -82,10 +82,7 @@ class Bullet(object):
         self.y=-3
         self.canvas=canvas
         self.id=canvas.create_oval(x,y,x-self.d,y-self.d,fill='#ddcc00')
-        self.canvas_height=self.canvas.winfo_height() 
-
-    def hit_rock():
-        pass
+        self.canvas_height=self.canvas.winfo_height()
     
     def draw(self):
         self.canvas.move(self.id,0,self.y)
@@ -106,12 +103,12 @@ class Rock(object):
     def draw(self):
         self.canvas.move(self.id,0,self.y)
         
-class Stats():
+class Stats(object):
     def __init__(self):
         self.pts=0
 
 # 0.2.5
-class InfoHP():
+class InfoHP(object):
     def __init__(self,canvas,hitpoints):
         self.canvas=canvas
         self.hp=hitpoints
@@ -120,7 +117,7 @@ class InfoHP():
     def update(self,hitpoints):
         self.canvas.itemconfigure(self.id,text='Hits: '+str(hitpoints))
 
-class InfoScore():
+class InfoScore(object):
     def __init__(self,canvas,score):
         self.canvas=canvas
         self.sc=score
@@ -130,22 +127,18 @@ class InfoScore():
         self.canvas.itemconfigure(self.id,text='Score: '+str(score))
 
 tk=Tk()
-score=StringVar()
-score.set('SCORE: ')
 state_str=StringVar()
 state_str.set('GAME ON. TO QUIT GAME PRESS \"ESC\", TO PAUSE PRESS \"ENTER\"')
 tk.title('SHOOT ROCKS GAME. VERSION '+version)
 tk.resizable(0,0)
 btn1=Button(tk,text='Exit App',command=tk.destroy)
 btn1.pack()
-score_label=Label(tk,textvariable=score)
-score_label.pack()
 state_label=Label(tk,textvariable=state_str)
 state_label.pack()
 canvas=Canvas(tk,width=500,height=500,bg='#000000')
 canvas.pack()
 
-v=Vehicle(canvas,'red')
+v=Vehicle(canvas)
 s=Stats()
 infohp=InfoHP(canvas,v.hitpoints)
 infosc=InfoScore(canvas,s.pts)
@@ -237,7 +230,6 @@ while state:
                     v.bs.remove(i)
                     rocks.remove(j)
                     s.pts+=10
-                    score.set(('SCORE: ')+str(s.pts))
                     # обновляем текст информации об очках
                     infosc.update(s.pts)
             #B. камень уходит за холст
