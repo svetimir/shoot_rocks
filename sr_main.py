@@ -1,14 +1,14 @@
 # SHOOTING ROCKS GAME
 # AUTHOR: fluxoid, ifi@yandex.ru
 # STARTED: 05.07.2017
-# VERSION: 0.2.6.1
+# VERSION: 0.2.7
 # LATEST FILE REVISION: 07.02.2018
 
 from tkinter import *
 from tkinter import messagebox
 import random, time
 
-version='0.2.6.1'
+version='0.2.7'
 authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 
 # 0.2.9 - ОЖИДАЕТСЯ
