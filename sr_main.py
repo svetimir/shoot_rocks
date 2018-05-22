@@ -1,14 +1,14 @@
 # SHOOTING ROCKS GAME
 # AUTHOR: fluxoid, ifi@yandex.ru
 # STARTED: 05.07.2017
-# VERSION: 0.2.7
-# LATEST FILE REVISION: 07.02.2018
+# VERSION: 0.2.7.1
+# LATEST FILE REVISION: 22.05.2018
 
 from tkinter import *
 from tkinter import messagebox
 import random, time
 
-version='0.2.7'
+version='0.2.7.1'
 authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 
 # 0.2.9 - ОЖИДАЕТСЯ
@@ -16,6 +16,9 @@ authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 
 # 0.2.8 - ОЖИДАЕТСЯ
 # - моргание корабля при попадании в него камня
+
+# 0.2.7.1
+# - добавлена документация к классам
 
 # 0.2.7
 # - новые экстра-прочные камни (с хитпоинтами количеством 3)
@@ -38,6 +41,12 @@ authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 # либо не уйдет за пределы игрового холста
 
 class Vehicle(object):
+    """
+    Класс корабля
+    * создает корабль на холсте
+    * задает характеристики корабля
+    * содержит массив пуль
+    """
     def __init__(self,canvas):
         self.canvas=canvas
         self.bs=list()
@@ -80,6 +89,11 @@ class Vehicle(object):
         pass
 
 class Bullet(object):
+    """
+    Класс пуль
+    * создает пулю при нажатии соответствующей кнопки
+    * пока (0.2.7.1) пули не имеют графики а рисуются графическим примитивом
+    """
     def __init__(self,canvas,x,y):
         self.d=7
         self.y=-3
@@ -91,6 +105,11 @@ class Bullet(object):
         self.canvas.move(self.id,0,self.y)
         
 class Rock(object):
+    """
+    Класс камней
+    * создает камень на холсте
+    * камень заданного типа (одного из двух), с заданной скоростью падения
+    """
     def __init__(self,canvas,velocity,rock_type):
 # конструктор версии 0.2.7
         self.rock_type=rock_type
@@ -113,11 +132,17 @@ class Rock(object):
         self.canvas.move(self.id,0,self.y)
 
 class Stats(object):
+    """
+    класс игровой статистики
+    """
     def __init__(self):
         self.pts=0
 
 # 0.2.5
 class InfoHP(object):
+    """
+    класс учёта хитпоинтов корабля и вывода их количества на экран
+    """
     def __init__(self,canvas,hitpoints):
         self.canvas=canvas
         self.hp=hitpoints
@@ -127,6 +152,9 @@ class InfoHP(object):
         self.canvas.itemconfigure(self.id,text='Hits: '+str(hitpoints))
 
 class InfoScore(object):
+    """
+    класс учета очков, заработанных игроком
+    """
     def __init__(self,canvas,score):
         self.canvas=canvas
         self.sc=score
@@ -153,7 +181,7 @@ infohp=InfoHP(canvas,v.hitpoints)
 infosc=InfoScore(canvas,s.pts)
 gap=0.01
 c=0
-tol=0.001
+#tol=0.001
 rocks=list()
 state=True
 # стартовый интервал спавна (сложности EASY)
@@ -181,6 +209,7 @@ wrock=0
 
 canvas.bind_all('<Escape>',lambda e: tk.destroy())
 
+#основной цикл игры
 while state:
     #if game paused
     if v.p:
