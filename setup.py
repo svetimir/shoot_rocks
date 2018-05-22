@@ -22,6 +22,6 @@ options = {
 }
 
 setup(options=options, name='ShootRocks',
-      version='0.2.7.1',
+      version='0.2.8',
       author='fluxoid <ifi@yandex.ru>, jazzard <deathwingstwinks@gmail.com>',
       executables=[Executable(script='sr_main.py', base=base)])

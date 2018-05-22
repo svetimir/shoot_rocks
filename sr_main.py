@@ -1,23 +1,23 @@
 # SHOOTING ROCKS GAME
 # AUTHOR: fluxoid, ifi@yandex.ru
 # STARTED: 05.07.2017
-# VERSION: 0.2.7.1
+# VERSION: 0.2.8
 # LATEST FILE REVISION: 22.05.2018
 
 from tkinter import *
 from tkinter import messagebox
 import random, time
 
-version='0.2.7.1'
+version='0.2.8'
 authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 
-# 0.2.9 - ОЖИДАЕТСЯ
+# 0.3 - ОЖИДАЕТСЯ
 # - уровни сложности EASY MEDIUM HARDCORE
 
-# 0.2.8 - ОЖИДАЕТСЯ
+# 0.2.9 - ОЖИДАЕТСЯ
 # - моргание корабля при попадании в него камня
 
-# 0.2.7.1
+# 0.2.8
 # - добавлена документация к классам
 
 # 0.2.7
