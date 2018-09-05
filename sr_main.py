@@ -1,21 +1,27 @@
+# -*- coding: utf-8 -*-
+
 # SHOOTING ROCKS GAME
 # AUTHOR: fluxoid, ifi@yandex.ru
 # STARTED: 05.07.2017
-# VERSION: 0.2.8
-# LATEST FILE REVISION: 22.05.2018
+# VERSION: 0.3
+# LATEST FILE REVISION: 05.09.2018
 
 from tkinter import *
 from tkinter import messagebox
 import random, time
 
-version='0.2.8'
+version='0.3'
 authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 
-# 0.3 - ОЖИДАЕТСЯ
+# 0.4 - ОЖИДАЕТСЯ
 # - уровни сложности EASY MEDIUM HARDCORE
 
-# 0.2.9 - ОЖИДАЕТСЯ
+# 0.3.1 - ОЖИДАЕТСЯ
 # - моргание корабля при попадании в него камня
+
+# 0.3
+# - добавлен анимированный бэкграунд
+# - оптимизация
 
 # 0.2.8
 # - добавлена документация к классам
@@ -172,8 +178,23 @@ btn1=Button(tk,text='Exit App',command=tk.destroy)
 btn1.pack()
 state_label=Label(tk,textvariable=state_str)
 state_label.pack()
-canvas=Canvas(tk,width=500,height=500,bg='#000000')
+canvas=Canvas(tk,width=500,height=500,bg='black')
 canvas.pack()
+
+#------------------------------
+# анимированный бэкграунд
+bg_upd_cnt=0
+frm_cnt=0
+bgif=PhotoImage(file='cosm.gif')
+bg_image=canvas.create_image(0,0,anchor=NW,image=bgif)
+
+bg_frames=[PhotoImage(file='cosm.gif',format='gif -index %i'%(i)) for i in range(45)]
+
+def update_bg(ind):
+    frame=bg_frames[ind]
+    canvas.itemconfigure(bg_image,image=frame)
+
+#------------------------------
 
 v=Vehicle(canvas)
 s=Stats()
@@ -308,6 +329,16 @@ while state:
                     state=False
                     state_str.set('GAME OVER')
                 break
+
+    # анимируем бэкграундный гиф
+    bg_upd_cnt+=1
+    if bg_upd_cnt>2:
+        bg_upd_cnt=0
+        if frm_cnt>44:
+            frm_cnt=0
+        update_bg(frm_cnt)
+        frm_cnt+=1
+
     tk.update_idletasks()
     tk.update()
     time.sleep(gap)
