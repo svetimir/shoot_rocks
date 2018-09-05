@@ -102,7 +102,7 @@ class Bullet(object):
     """
     def __init__(self,canvas,x,y):
         self.d=7
-        self.y=-3
+        self.y=-5
         self.canvas=canvas
         self.id=canvas.create_oval(x,y,x-self.d,y-self.d,fill='#ddcc00')
         self.canvas_height=self.canvas.winfo_height()

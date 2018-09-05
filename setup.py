@@ -52,5 +52,4 @@ setup(options=options, name='ShootRocks',
       executables=[Executable(
           script='sr_main.py',
           base=base,
-          shortcutName="Shoot Rocks 0.3 Stars Edition",
-          shortcutDir="DesktopFolder")])
+          )])
