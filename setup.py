@@ -17,6 +17,7 @@ options = {
             os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tcl86t.dll'),
             'sp-0.2.1.gif',
             'asteroid40x40.gif',
+            'asteroid-extra.gif',
             'cosm.gif',
          ],
     },
@@ -25,4 +26,8 @@ options = {
 setup(options=options, name='ShootRocks',
       version='0.3',
       author='fluxoid <ifi@yandex.ru>, jazzard <deathwingstwinks@gmail.com>',
-      executables=[Executable(script='sr_main.py', base=base)])
+      executables=[Executable(
+          script='sr_main.py',
+          base=base,
+          shortcut="Shoot Rocks 0.3 Stars Edition",
+          shortcutDir="DesktopFolder")])
