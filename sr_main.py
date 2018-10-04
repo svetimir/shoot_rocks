@@ -16,8 +16,11 @@ authors='fluxoid <ifi@yandex.ru>\njazzard <deathwingstwinks@gmail.com>'
 # 0.4 - ОЖИДАЕТСЯ
 # - уровни сложности EASY MEDIUM HARDCORE
 
-# 0.3.1 - ОЖИДАЕТСЯ
+# 0.3.2 - ОЖИДАЕТСЯ
 # - моргание корабля при попадании в него камня
+
+# 0.3.1
+# - оптимизация, исправление косяков
 
 # 0.3
 # - добавлен анимированный бэкграунд
@@ -70,12 +73,12 @@ class Vehicle(object):
         self.hitpoints=5
 
     def draw(self):
+        pos = self.canvas.coords(self.id)
         self.canvas.move(self.id,self.x,0)
-        pos=self.canvas.coords(self.id)
-        if pos[0]<=0:
-            self.x=0
-        elif pos[1]>=self.canvas_width:
-            self.x=0
+        if pos[0] <= 0:
+            self.x = 0
+        elif pos[0] >= self.canvas_width:
+            self.x = 0
 
     def spause(self,event):
         self.p=not self.p
@@ -264,8 +267,8 @@ while state:
             if fall_v<=max_v:
                 fall_v+=v_fact
             # debug
-            #print('текущая скорость камней: '+str(fall_v))
-            #print('текущий промежуток спавна: '+str(spawn_interval))
+            # print('текущая скорость камней: '+str(fall_v))
+            # print('текущий промежуток спавна: '+str(spawn_interval))
             # end_debug
             rc=0
         if rs==next_sp:
