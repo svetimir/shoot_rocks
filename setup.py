@@ -13,7 +13,7 @@ PYTHON_INSTALL_DIR = os.path.dirname(os.path.dirname(os.__file__))
 shortcut_table = [
     ("DesktopShortcut",        # Shortcut
      "DesktopFolder",          # Directory_
-     "Shoot Rocks 0.3 Stars Edition",           # Name
+     "Shoot Rocks 0.3.1 Stars Edition",           # Name
      "TARGETDIR",              # Component_
      "[TARGETDIR]sr_main.exe",# Target
      None,                     # Arguments
@@ -47,7 +47,7 @@ options = {
 }
 
 setup(options=options, name='ShootRocks',
-      version='0.3',
+      version='0.3.1',
       author='fluxoid <ifi@yandex.ru>, jazzard <deathwingstwinks@gmail.com>',
       executables=[Executable(
           script='sr_main.py',
